@@ -67,7 +67,7 @@ app.get('/', function(req, res, next) {
 		}
 	}
 
-	ip = req.header['x-forwarded-for'];
+	ip = req.header('X-FORWARDED-FOR');
 	if (ip) {
 		ip = ip.split(',');
 		ip = ip && ip[0];
@@ -95,6 +95,7 @@ app.get('/', function(req, res, next) {
 	getIp(ip, hazIp);
 });
 
-app.listen(3000, function(){
+var port = process.env.PORT || 3000;
+app.listen(port, function(){
 	console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 });
