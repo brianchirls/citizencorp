@@ -113,6 +113,17 @@
 
         var init = function(){
             el.innerHTML = formHTML + resultsHTML;
+            var selectBox = el.querySelector('form select'),
+                    opt
+                    ;
+                for(var state in states) {
+                    opt = null;
+                    opt = document.createElement('option');
+                    opt.value = state;
+                    opt.innerHTML = states[state];
+                    selectBox.appendChild(opt);
+                }
+                loadLegislators();
         },
         loadLegislators = function(){
             addScript(legislatorsURL + '?apikey=' + options.apikey, {callbackParameter: 'jsonp'}, function(data){
@@ -141,17 +152,6 @@
         return {
             _setup: function(event, options) {
                 init();
-                var selectBox = el.querySelector('form select'),
-                    opt
-                    ;
-                for(var state in states) {
-                    opt = null;
-                    opt = document.createElement('option');
-                    opt.value = state;
-                    opt.innerHTML = states[state];
-                    selectBox.appendChild(opt);
-                }
-                loadLegislators();
             },
             start: function( event, options ) {
                 base.addClass(el, 'active');
