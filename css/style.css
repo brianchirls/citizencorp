@@ -12,6 +12,7 @@
 #video-container {
     position: relative;
     margin: 1em auto;
+    min-width: 900px;
 }
 
 #video-container > video {

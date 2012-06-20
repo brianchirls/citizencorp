@@ -33,11 +33,26 @@
 		});
 
 		popcorn.influenceExplorer({
-			start: 0,
-			end: 8,
+			start: 2,
+			end: 6,
 			orgId: '86656f0dca46422e997aade92cfd0419',
 			orgName: 'Americans for Prosperity'
 		});
+
+		popcorn.influenceExplorer({
+			start: 6.2,
+			end: 10,
+			orgId: 'bdfd0d138c4c474d842a6e4d85aa8b0a',
+			orgName: 'Republican Governors Association'
+		});
+/*
+		popcorn.influenceExplorer({
+			start: 10,
+			end: 14,
+			orgId: 'bdfd0d138c4c474d842a6e4d85aa8b0a',
+			orgName: 'Republican Governors Association'
+		});
+*/
 
 		/*
 			popcorn.defaults.stateExplorer = {
