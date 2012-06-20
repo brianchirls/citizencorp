@@ -60,7 +60,7 @@ app.get('/', function(req, res, next) {
 		callback = req.query.callback;
 	function hazIp(data) {
 		if (callback) {
-			res.send(JSON.stringify(callback) + '(' +
+			res.send(escape(callback) + '(' +
 				JSON.stringify(data) + ');', {'Content-Type': 'application/javascript'});
 		} else {
 			res.send(JSON.stringify(data, null, 4), {'Content-Type': 'application/json'});
