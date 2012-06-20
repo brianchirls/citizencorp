@@ -226,6 +226,7 @@
 						cell = document.createElement('td');
 						base.addClass(cell, 'bar');
 						e = document.createElement('span');
+						e.innerHTML = '&nbsp;';
 						e.style.width = 100 * rec.total_amount / max + '%';
 						cell.appendChild(e);
 						row.appendChild(cell);
