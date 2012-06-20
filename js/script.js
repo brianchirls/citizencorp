@@ -22,16 +22,25 @@
 		});
 
 		popcorn.defaults('influenceExplorer', {
-			apikey: sunlightAPIKey
+			apikey: sunlightAPIKey,
+			target: 'video-container'
 		});
 
 		popcorn.defaults('stateExplorer', {
 			apikey: sunlightAPIKey,
+			target: 'video-container',
 			state: loc && loc.country_code === 'US' && loc.region_code
 		});
 
+		popcorn.influenceExplorer({
+			start: 0,
+			end: 8,
+			orgId: '86656f0dca46422e997aade92cfd0419',
+			orgName: 'Americans for Prosperity'
+		});
+
 		/*
-			popcorn.defaults.influenceExplorer = {
+			popcorn.defaults.stateExplorer = {
 				state: 'MD'
 			};
 
