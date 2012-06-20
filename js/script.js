@@ -8,10 +8,10 @@
 
 	CORP.request = {};
 	// Get geolocation
-	Popcorn.getJSONP('http://citcorpip.nodejitsu.com', function(data) {
+	CORP.setLocation = function(data) {
 		CORP.request['location'] = data;
 		init();
-	});
+	};
 
 	init = function(){
 		popcorn = new Popcorn('#video', {
@@ -30,5 +30,5 @@
 			});
 		*/
 	};
-	
+
 }(window.CORP || (CORP = {}), window));
