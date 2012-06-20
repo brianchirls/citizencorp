@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+	<head>
+		<meta charset="UTF-8">
+		<title>Citizen Corp Popcorn.js</title>
+		<style type="text/css">
+
+		#video-container {
+			position: relative;
+			margin: 1em auto;
+		}
+
+		#target > div {
+			/* default position */
+			position: absolute;
+			top: 0;
+			left: 0;
+			font-size: 10em;
+			color: white;
+		}
+
+		</style>
+	</head>
+	<body>
+		<video id="video" controls>
+			<source src="http://videos-origin.mozilla.org/serv/webmademovies/everything_is_a_remix_4.webm" type='video/webm; codecs="vp8, vorbis"'/>
+		</video>
+		<div id="target"></div>
+	</body>
+	<script type="text/javascript" src="js/popcorn.js"></script>
+	<script type="text/javascript" src="js/popcorn-base.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+</html>
