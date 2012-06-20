@@ -1,4 +1,6 @@
 (function (window, undefined) {
+	"use strict";
+
 	var Popcorn = window.Popcorn,
 		document = window.document,
 
