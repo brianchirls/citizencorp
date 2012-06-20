@@ -36,12 +36,12 @@ function getIp(ip, next) {
 		addresses.splice(i, 1);
 		addresses.push(ip);
 		next(ipCache[ip]);
-		//console.log(ip + 'from cache', ipCache);
+		console.log(ip + ' from cache');
 		return;
 	}
 
 	restler.get('http://freegeoip.net/json/' + ip).on('complete', function (result) {
-		//console.log('got remote data', result);
+		console.log('got remote data for ' + ip);
 		if (addresses.length > 1000) {
 			i = addresses.shift();
 			delete ipCache[i];
@@ -56,7 +56,7 @@ function getIp(ip, next) {
 // Routes
 
 app.get('/', function(req, res, next) {
-	var ip = req.connection.remoteAddress || '',
+	var ip,
 		callback = req.query.callback;
 	function hazIp(data) {
 		if (callback) {
@@ -67,7 +67,19 @@ app.get('/', function(req, res, next) {
 		}
 	}
 
-	ip = ip.trim();
+	ip = req.header['x-forwarded-for'];
+	if (ip) {
+		ip = ip.split(',');
+		ip = ip && ip[0];
+		console.log('ip address from proxy header: ' + ip);
+	}
+
+	if (!ip) {
+		ip = req.connection.remoteAddress;
+		console.log('ip address connection.remoteAddress: ' + ip);
+	}
+
+	ip = ip && ip.trim();
 	if (ip === '127.0.0.1') {
 		ip = '208.76.113.2';
 	} else {
@@ -75,6 +87,7 @@ app.get('/', function(req, res, next) {
 	}
 
 	if (!ip) {
+		console.log('no ip address found');
 		hazIp({});
 		return;
 	}
