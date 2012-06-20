@@ -36,23 +36,25 @@
 			start: 2,
 			end: 6,
 			orgId: '86656f0dca46422e997aade92cfd0419',
-			orgName: 'Americans for Prosperity'
+			orgName: 'Americans for Prosperity',
+			html: 'Americans for Prosperity spent millions on television ads in Wisconsin in support of Gov. Walker in 2011-2012, according to local television ad buy reports reviewed by the Wisconsin Democracy Campaign. These expenditures are not required to be disclosed publicly.'
 		});
-
+/*
 		popcorn.influenceExplorer({
 			start: 6.2,
 			end: 10,
 			orgId: 'bdfd0d138c4c474d842a6e4d85aa8b0a',
 			orgName: 'Republican Governors Association'
 		});
-/*
-		popcorn.influenceExplorer({
-			start: 10,
-			end: 14,
-			orgId: 'bdfd0d138c4c474d842a6e4d85aa8b0a',
-			orgName: 'Republican Governors Association'
-		});
 */
+		popcorn.influenceExplorer({
+			start: 15,
+			end: 21,
+			orgId: '7416a2e232fa434e99b520d7603e09a9',
+			orgName: 'Campaign to Defeat Barack Obama',
+			html: 'The Campaign to Defeat Barack Obama is a California-based organization formed to defeat President Barack Obama in the 2012 presidential election. It has not registered to make independent expenditures in Wisconsin elections, even though it sponsored broadcast advertising in the 2011 and 2012 recall elections.'
+		});
+
 
 		/*
 			popcorn.defaults.stateExplorer = {
