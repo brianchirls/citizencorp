@@ -67,7 +67,7 @@ app.get('/', function(req, res, next) {
 		}
 	}
 
-	ip = req.header('X-FORWARDED-FOR');
+	ip = req.header('X-FORWARDED-FOR', null);
 	if (ip) {
 		ip = ip.split(',');
 		ip = ip && ip[0];
