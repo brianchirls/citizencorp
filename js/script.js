@@ -4,7 +4,8 @@
 	var Popcorn = window.Popcorn,
 		document = window.document,
 		init,
-		popcorn;
+		popcorn,
+		sunlightAPIKey = '6017dead92a04c288d268d6e1d50a293';
 
 	CORP.request = {};
 	// Get geolocation
@@ -14,8 +15,19 @@
 	};
 
 	init = function(){
+		var loc = CORP.request['location'];
+
 		popcorn = new Popcorn('#video', {
 			frameAnimation: true
+		});
+
+		popcorn.defaults('influenceExplorer', {
+			apikey: sunlightAPIKey
+		});
+
+		popcorn.defaults('stateExplorer', {
+			apikey: sunlightAPIKey,
+			state: loc && loc.country_code === 'US' && loc.region_code
 		});
 
 		/*
