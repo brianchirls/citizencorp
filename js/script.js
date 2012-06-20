@@ -56,6 +56,11 @@
 		});
 
 
+		popcorn.stateExplorer({
+			start: 80,
+			end: 120
+		});
+
 		/*
 			popcorn.defaults.stateExplorer = {
 				state: 'MD'
