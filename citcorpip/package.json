@@ -1,0 +1,17 @@
+{
+  "name": "citcorpip",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "2.5.8",
+    "jade": ">= 0.0.1",
+    "restler": ">= 2.0.1"
+  },
+  "subdomain": "citcorpip",
+  "scripts": {
+    "start": "app.js"
+  },
+  "engines": {
+    "node": "0.6.x"
+  }
+}
