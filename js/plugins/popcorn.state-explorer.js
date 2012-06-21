@@ -185,8 +185,8 @@
                 }, false);
 
                 //set up looping
-                loopEndTime = options.end;
-                loopEndTime -= Math.min(5, (options.end - options.start / 10));
+                loopEndTime = Popcorn.util.toSeconds(options.end);
+                loopEndTime -= Math.min(5, (loopEndTime - Popcorn.util.toSeconds(options.start) / 10));
                 el.querySelector('.results table tbody').addEventListener('scroll', function() {
                     touched = Date.now();
                 }, false);
@@ -203,7 +203,7 @@
                     evt.preventDefault();
                 }
                 base.removeClass(el, 'active');
-                popcorn.currentTime(options.end);
+                popcorn.currentTime(Popcorn.util.toSeconds(options.end));
             },
             // hash accessors
             getState = function(orig){
@@ -416,9 +416,9 @@
                     return;
                 }
                 if (touched && Date.now() - touched >= 180000 || !touched && (time - idleStartTime) > 20) {
-                    popcorn.currentTime(options.end);
+                    popcorn.currentTime(Popcorn.util.toSeconds(options.end));
                 } else if (time >= loopEndTime) {
-                    popcorn.currentTime(options.start + 1);
+                    popcorn.currentTime(Popcorn.util.toSeconds(options.start) + 1);
                 }
             },
             start: function( event, options ) {
