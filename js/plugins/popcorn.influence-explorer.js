@@ -206,20 +206,6 @@
 								return colors[partiesData[i].party] || '#000';
 							})
 							.attr('d', arc);
-							//.exit().remove();
-						/*
-						lines = svg.selectAll('line').data(partiesData);
-						lines.enter().append('svg:line')
-							.attr('x1', 0)
-							.attr('x2', 0)
-							.attr('y1', -r - 3)
-							.attr('y2', -r - 8)
-							.attr('stroke', 'black')
-							.attr('transform', function(d) {
-								return 'rotate(' + ((d.startAngle + d.endAngle) / 2 * 180/Math.PI) + ')';
-							});
-						lines.exit();
-						*/
 					});
 				}
 			});
