@@ -84,7 +84,7 @@
 			base.removeClass(lightbox, 'active');
 		}
 
-		if (!base.target || !options.orgId) {
+		if (!base.target || !options.orgName) {
 			return;
 		}
 
@@ -149,140 +149,142 @@
 		dataContainer = document.createElement('section');
 		lightboxContent.appendChild(dataContainer);
 
-		addScript('http://transparencydata.com/api/1.0/aggregates/org/' + options.orgId + '/recipients/party_breakdown.json?cycle=2012&apikey=' + options.apikey, function(data) {
-			var pieData = [], i, partiesData = [];
+		if (options.orgId) {
+			addScript('http://transparencydata.com/api/1.0/aggregates/org/' + options.orgId + '/recipients/party_breakdown.json?cycle=2012&apikey=' + options.apikey, function(data) {
+				var pieData = [], i, partiesData = [];
 
-			for (i in data) {
-				pieData.push(data[i][1]);
-				partiesData.push({
-					party: i,
-					qty: data[i][0],
-					amount: data[i][1]
-				});
-			}
-
-			if (partiesData.length) {
-				parties = document.createElement('div');
-				base.addClass(parties, 'parties');
-				dataContainer.appendChild(parties);
-				parties.innerHTML = '<h3>Disclosed Political Contributions</h3><p class="descr">in dollars. "other" includes 3rd parties and organizations without official party affiliation.</p>';
-
-				refScript('http://cdnjs.cloudflare.com/ajax/libs/d3/2.8.1/d3.v2.min.js', 'd3', function() {
-					var svg,
-						w = 240, h = 240,
-						r = Math.min(w, h) / 2,
-						arcs, donut, lines, arc,
-						colors = {
-							'Democrats': '#0200e6',
-							'Republicans': '#e60002'
-						};
-
-					svg = d3.select(parties).append('svg:svg')
-						.attr('width', w)
-						.attr('height', h)
-						.append('svg:g')
-						.attr('transform', 'translate(' + w / 2 + "," + h / 2 + ')');
-
-					arc = d3.svg.arc().innerRadius(r - 100).outerRadius(r - 20);
-					donut = d3.layout.pie().sort(null);
-
-					arc.startAngle(function(d) {
-						return d.startAngle;
+				for (i in data) {
+					pieData.push(data[i][1]);
+					partiesData.push({
+						party: i,
+						qty: data[i][0],
+						amount: data[i][1]
 					});
+				}
 
-					arcs = svg.selectAll('path')
-						.data(donut(pieData))
-						.enter().append('svg:path')
-						.attr('fill', function(d, i) {
-							//return color(i);
-							return colors[partiesData[i].party] || '#000';
-						})
-						.attr('d', arc);
-						//.exit().remove();
-					/*
-					lines = svg.selectAll('line').data(partiesData);
-					lines.enter().append('svg:line')
-						.attr('x1', 0)
-						.attr('x2', 0)
-						.attr('y1', -r - 3)
-						.attr('y2', -r - 8)
-						.attr('stroke', 'black')
-						.attr('transform', function(d) {
-							return 'rotate(' + ((d.startAngle + d.endAngle) / 2 * 180/Math.PI) + ')';
+				if (partiesData.length) {
+					parties = document.createElement('div');
+					base.addClass(parties, 'parties');
+					dataContainer.appendChild(parties);
+					parties.innerHTML = '<h3>Disclosed Political Contributions</h3><p class="descr">in dollars. "other" includes 3rd parties and organizations without official party affiliation.</p>';
+
+					refScript('http://cdnjs.cloudflare.com/ajax/libs/d3/2.8.1/d3.v2.min.js', 'd3', function() {
+						var svg,
+							w = 240, h = 240,
+							r = Math.min(w, h) / 2,
+							arcs, donut, lines, arc,
+							colors = {
+								'Democrats': '#0200e6',
+								'Republicans': '#e60002'
+							};
+
+						svg = d3.select(parties).append('svg:svg')
+							.attr('width', w)
+							.attr('height', h)
+							.append('svg:g')
+							.attr('transform', 'translate(' + w / 2 + "," + h / 2 + ')');
+
+						arc = d3.svg.arc().innerRadius(r - 100).outerRadius(r - 20);
+						donut = d3.layout.pie().sort(null);
+
+						arc.startAngle(function(d) {
+							return d.startAngle;
 						});
-					lines.exit();
-					*/
-				});
-			}
-		});
 
-		addScript('http://transparencydata.com/api/1.0/aggregates/org/' + options.orgId + '/recipients.json?cycle=2012&apikey=' + options.apikey, function(data) {
-			var row, cell, table, i, rec, e, max = 0;
-
-			function renderTable(data, wordField, amountField) {
-				var w = [], a = [];
-				for (i = 0; i < data.length; i++) {
-
-					if (typeof wordField === 'function') {
-						w[i] = wordField(data[i]);
-					} else {
-						w[i] = data[i][wordField];
-					}
-
-					if (typeof amountField === 'function') {
-						a[i] = amountField(data[i]);
-					} else {
-						a[i] = data[i][amountField];
-					}
-
-					max = Math.max(max, a[i]);
+						arcs = svg.selectAll('path')
+							.data(donut(pieData))
+							.enter().append('svg:path')
+							.attr('fill', function(d, i) {
+								//return color(i);
+								return colors[partiesData[i].party] || '#000';
+							})
+							.attr('d', arc);
+							//.exit().remove();
+						/*
+						lines = svg.selectAll('line').data(partiesData);
+						lines.enter().append('svg:line')
+							.attr('x1', 0)
+							.attr('x2', 0)
+							.attr('y1', -r - 3)
+							.attr('y2', -r - 8)
+							.attr('stroke', 'black')
+							.attr('transform', function(d) {
+								return 'rotate(' + ((d.startAngle + d.endAngle) / 2 * 180/Math.PI) + ')';
+							});
+						lines.exit();
+						*/
+					});
 				}
+			});
 
-				table = document.createElement('table');
-				recipients.appendChild(table);
-				for (i = 0; i < data.length; i++) {
-					rec = data[i];
-					row = document.createElement('tr');
-					table.appendChild(row);
-					cell = document.createElement('td');
-					cell.appendChild(document.createTextNode(w[i]));
-					row.appendChild(cell);
+			addScript('http://transparencydata.com/api/1.0/aggregates/org/' + options.orgId + '/recipients.json?cycle=2012&apikey=' + options.apikey, function(data) {
+				var row, cell, table, i, rec, e, max = 0;
 
-					cell = document.createElement('td');
-					cell.appendChild(document.createTextNode('$' + a[i]));
-					row.appendChild(cell);
+				function renderTable(data, wordField, amountField) {
+					var w = [], a = [];
+					for (i = 0; i < data.length; i++) {
 
-					if (max) {
+						if (typeof wordField === 'function') {
+							w[i] = wordField(data[i]);
+						} else {
+							w[i] = data[i][wordField];
+						}
+
+						if (typeof amountField === 'function') {
+							a[i] = amountField(data[i]);
+						} else {
+							a[i] = data[i][amountField];
+						}
+
+						max = Math.max(max, a[i]);
+					}
+
+					table = document.createElement('table');
+					recipients.appendChild(table);
+					for (i = 0; i < data.length; i++) {
+						rec = data[i];
+						row = document.createElement('tr');
+						table.appendChild(row);
 						cell = document.createElement('td');
-						base.addClass(cell, 'bar');
-						e = document.createElement('span');
-						e.innerHTML = '&nbsp;';
-						e.style.width = 100 * a[i] / max + '%';
-						cell.appendChild(e);
+						cell.appendChild(document.createTextNode(w[i]));
 						row.appendChild(cell);
+
+						cell = document.createElement('td');
+						cell.appendChild(document.createTextNode('$' + a[i]));
+						row.appendChild(cell);
+
+						if (max) {
+							cell = document.createElement('td');
+							base.addClass(cell, 'bar');
+							e = document.createElement('span');
+							e.innerHTML = '&nbsp;';
+							e.style.width = 100 * a[i] / max + '%';
+							cell.appendChild(e);
+							row.appendChild(cell);
+						}
 					}
 				}
-			}
 
-			if (data && data.length) {
-				recipients = document.createElement('div');
-				base.addClass(recipients, 'recipients');
-				dataContainer.appendChild(recipients);
-				recipients.innerHTML = '<h3>Top Recipients</h3><p class="descr">includes contributions from the organization’s employees, their family members, and its political action committee.</p>';
-				renderTable(data, function(rec) {
-					return rec.name + ((rec.party && rec.state) ? ' ' + rec.party + '-' + rec.state : '');
-				}, 'total_amount');
-
-			} else {
-				addScript('http://transparencydata.com/api/1.0/aggregates/org/' + options.orgId + '/fec_top_contribs.json?cycle=2012&apikey=' + options.apikey, function(data) {
+				if (data && data.length) {
 					recipients = document.createElement('div');
 					base.addClass(recipients, 'recipients');
 					dataContainer.appendChild(recipients);
-					recipients.innerHTML = '<h3>Top Contributors</h3><p class="descr">top donors giving over $100,000</p>';
-					renderTable(data, 'contributor_name', 'amount');
-				});
-			}
-		});
+					recipients.innerHTML = '<h3>Top Recipients</h3><p class="descr">includes contributions from the organization’s employees, their family members, and its political action committee.</p>';
+					renderTable(data, function(rec) {
+						return rec.name + ((rec.party && rec.state) ? ' ' + rec.party + '-' + rec.state : '');
+					}, 'total_amount');
+
+				} else {
+					addScript('http://transparencydata.com/api/1.0/aggregates/org/' + options.orgId + '/fec_top_contribs.json?cycle=2012&apikey=' + options.apikey, function(data) {
+						recipients = document.createElement('div');
+						base.addClass(recipients, 'recipients');
+						dataContainer.appendChild(recipients);
+						recipients.innerHTML = '<h3>Top Contributors</h3><p class="descr">top donors giving over $100,000</p>';
+						renderTable(data, 'contributor_name', 'amount');
+					});
+				}
+			});
+		}
 
 		e = document.createElement('div');
 		e.innerHTML = '<h3>Dig Deeper</h3>';
