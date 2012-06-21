@@ -105,6 +105,8 @@
                     '.popcorn-stateExplorer.active { left: 5%; opacity:1; ' + opacityTransition + ' }\n' +
                     '.popcorn-stateExplorer .right { float:right; }\n' +
                     '.popcorn-stateExplorer .left { float:left; }\n' +
+                    '.popcorn-stateExplorer .asc:after { display:block;width:0;height:0;border:6px solid transparent;border-bottom-color:#111; }\n' +
+                    '.popcorn-stateExplorer .desc:after { display:block;width:0;height:0;border:6px solid transparent;border-top-color:#111; }\n' +
                     '.popcorn-stateExplorer .clear { clear:both; }\n'
                 )
             );
@@ -137,6 +139,7 @@
                             </div>',
             el = base.makeContainer(),
             legislators = {},
+            contributions = {},
             dataset = [],
             states = {'AL': 'Alabama', 'AK': 'Alaska', 'AZ': 'Arizona', 'AR': 'Arkansas', 'CA': 'California', 'CO': 'Colorado', 'CT': 'Connecticut', 'DE': 'Delaware', 'DC': 'District of Columbia', 'FL': 'Florida', 'GA': 'Georgia', 'HI': 'Hawaii', 'ID': 'Idaho', 'IL': 'Illinois', 'IN': 'Indiana', 'IA': 'Iowa', 'KS': 'Kansas', 'KY': 'Kentucky', 'LA': 'Louisiana', 'ME': 'Maine', 'MD': 'Maryland', 'MA': 'Massachusetts', 'MI': 'Michigan', 'MN': 'Minnesota', 'MO': 'Missouri', 'MT': 'Montana', 'NE': 'Nebraska', 'NV': 'Nevada', 'NH': 'New Hampshire', 'NJ': 'New Jersey', 'NM': 'New Mexico', 'NY': 'New York', 'NC': 'North Carolina', 'ND': 'North Dakota', 'OH': 'Ohio', 'OK': 'Oklahoma', 'OR': 'Oregon', 'PA': 'Pennsylvania', 'RI': 'Rhode Island', 'SC': 'South Carolina', 'SD': 'South Dakota', 'TN': 'Tennessee', 'TX': 'Texas', 'UT': 'Utah', 'VT': 'Vermont', 'VA': 'Virginia', 'WA': 'Washington', 'WV': 'West Virginia', 'WI': 'Wisconsin', 'WY': 'Wyoming'},
             races = {'federal:house': 'House', 'federal:senate': 'Senate', 'federal:president': 'Presidential', 'state:governor': 'Governor'},
@@ -257,9 +260,8 @@
             // query / display helpers
             loadResultTable = function(state){
                 var activeRequests = 0,
-                    // stateLegislators = legislatorsByState(state),
-                    requestURL,
                     results = [],
+                    requestURL,
                     handleResult = function(data){
                         for(var i in data){
                             results.push(data[i]);
@@ -271,12 +273,19 @@
                         if(activeRequests === 0){
                             base.removeClass(el, 'loading');
                             dataset = results;
+                            contributions[state] = dataset;
+                            window.contributions = contributions;
                             dataset.sort(sortFunctions.contributionsByAmountDesc);
                             var tbody = el.querySelector('.results table tbody');
                             tbody.innerHTML = '';
                             renderDataset(tbody);
                         }
                     };
+                if(typeof contributions[state] !== 'undefined'){
+                    results = contributions[state];
+                    finish();
+                    return;
+                }
                 base.addClass(el, 'loading');
                 activeRequests++;
                 requestURL = contributionsURL + '&recipient_state=' + state + '&apikey=' + options.apikey;
