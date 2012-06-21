@@ -54,6 +54,7 @@
 		callbackCounter++;
 		url[1].push('callback=' + cb);
 		window[cb] = function(data) {
+			script.parentNode.removeChild(script);
 			delete window[cb];
 			callback(data);
 		};
@@ -120,7 +121,7 @@
 			media.pause();
 			base.addClass(lightbox, 'active');
 			base.removeClass(click, 'active');
-		});
+		}, false);
 
 		lightbox = document.createElement('div');
 		base.addClass(lightbox, 'popcorn-influenceExplorer-lightbox');
@@ -133,7 +134,7 @@
 		base.addClass(close, 'close');
 		close.appendChild(document.createTextNode('X')); //todo: replace with image
 		lightbox.appendChild(close);
-		close.addEventListener('click', closeLightbox);
+		close.addEventListener('click', closeLightbox, false);
 
 	
 		e = document.createElement('h2');
@@ -312,12 +313,12 @@
 		return {
 			start: function( event, options ) {
 				base.addClass(click, 'active');
-				window.addEventListener('keydown', keyEvent);
+				window.addEventListener('keydown', keyEvent, true);
 			},
 			end: function( event, options ) {
 				base.removeClass(click, 'active');
 				base.removeClass(lightbox, 'active');
-				window.removeEventListener('keydown', keyEvent);
+				window.removeEventListener('keydown', keyEvent, true);
 			},
 			_teardown: function( options ) {
 			}

@@ -133,7 +133,7 @@ popcorn.influenceExplorer({
 					popcorn.pause();
 				}
 			}
-		});
+		}, true);
 	};
 
 }(window.CORP || (CORP = {}), window));

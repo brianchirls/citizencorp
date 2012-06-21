@@ -155,7 +155,7 @@
                 var sortableHeaders = el.querySelectorAll('.results thead th a.sortable');
                 for(var i=0; i<sortableHeaders.length; i++){
                     var hdr = sortableHeaders[i];
-                    hdr.addEventListener('click', handleSortEvent);
+                    hdr.addEventListener('click', handleSortEvent, false);
                 }
 
                 var selectBox = el.querySelector('form select'),
@@ -170,7 +170,7 @@
                 }
 
                 var closeButton = el.querySelector('form a.close');
-                closeButton.addEventListener('click', closeLightbox);
+                closeButton.addEventListener('click', closeLightbox, false);
                 // loadLegislators();
                 try{
                     selectBox.value = window.CORP.request['location'].region_code;
@@ -181,14 +181,14 @@
                         loadResultTable(state);
                         touched = Date.now();
                     }catch(e){}
-                });
+                }, false);
 
                 //set up looping
                 loopEndTime = options.end;
                 loopEndTime -= Math.min(5, (options.end - options.start / 10));
                 el.querySelector('.results table tbody').addEventListener('scroll', function() {
                     touched = Date.now();
-                });
+                }, false);
 
                 keyEvent = function(evt) {
                     if (evt.keyCode === 27) {
@@ -428,12 +428,12 @@
                 touched = false;
                 idleStartTime = popcorn.currentTime();
 
-                window.addEventListener('keydown', keyEvent);
+                window.addEventListener('keydown', keyEvent, true);
             },
             end: function( event, options ) {
                 base.removeClass(el, 'active');
                 popcorn.volume(originalVolume);
-                window.removeEventListener('keydown', keyEvent);
+                window.removeEventListener('keydown', keyEvent, true);
             },
             _teardown: function( options ) {
             }
