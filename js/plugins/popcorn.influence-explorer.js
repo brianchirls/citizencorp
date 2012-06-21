@@ -75,7 +75,14 @@
 			click,
 			close,
 			dataContainer,
-			e;
+			e,
+			keyEvent;
+
+		function closeLightbox() {
+			media.play();
+			base.addClass(click, 'active');
+			base.removeClass(lightbox, 'active');
+		}
 
 		if (!base.target || !options.orgId) {
 			return;
@@ -123,11 +130,7 @@
 		base.addClass(close, 'close');
 		close.appendChild(document.createTextNode('X')); //todo: replace with image
 		lightbox.appendChild(close);
-		close.addEventListener('click', function () {
-			media.play();
-			base.addClass(click, 'active');
-			base.removeClass(lightbox, 'active');
-		});
+		close.addEventListener('click', closeLightbox);
 
 		e = document.createElement('div');
 		e.innerHTML = 'Brett put whatever you want in here above the h2';
@@ -292,13 +295,21 @@
 			lightboxContent.appendChild(e);
 		}
 
+		keyEvent = function(evt) {
+			if (evt.keyCode === 27) {
+				closeLightbox();
+			}
+		};
+
 		return {
 			start: function( event, options ) {
 				base.addClass(click, 'active');
+				window.addEventListener('keydown', keyEvent);
 			},
 			end: function( event, options ) {
 				base.removeClass(click, 'active');
 				base.removeClass(lightbox, 'active');
+				window.removeEventListener('keydown', keyEvent);
 			},
 			_teardown: function( options ) {
 			}

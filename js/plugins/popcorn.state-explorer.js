@@ -144,6 +144,7 @@
             idleStartTime,
             originalVolume,
             touched,
+            keyEvent,
             // initializer function
             init = function(){
                 el.innerHTML = formHTML + resultsHTML;
@@ -165,10 +166,7 @@
                 }
 
                 var closeButton = el.querySelector('form a.close');
-                closeButton.addEventListener('click', function(evt){
-                    evt.preventDefault();
-                    base.removeClass(el, 'active');
-                });
+                closeButton.addEventListener('click', closeLightbox);
                 // loadLegislators();
                 try{
                     selectBox.value = window.CORP.request['location'].region_code;
@@ -188,6 +186,19 @@
                     touched = Date.now();
                 });
 
+                keyEvent = function(evt) {
+                    if (evt.keyCode === 27) {
+                        closeLightbox();
+                    }
+                };
+
+            },
+            closeLightbox = function(evt){
+                if (evt) {
+                    evt.preventDefault();
+                }
+                base.removeClass(el, 'active');
+                popcorn.currentTime(options.end);
             },
             // hash accessors
             getState = function(orig){
@@ -402,10 +413,13 @@
                 popcorn.volume(Math.min(0.1, originalVolume));
                 touched = false;
                 idleStartTime = popcorn.currentTime();
+
+                window.addEventListener('keydown', keyEvent);
             },
             end: function( event, options ) {
                 base.removeClass(el, 'active');
                 popcorn.volume(originalVolume);
+                window.removeEventListener('keydown', keyEvent);
             },
             _teardown: function( options ) {
             }
