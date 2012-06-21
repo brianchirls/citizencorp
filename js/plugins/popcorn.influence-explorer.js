@@ -71,6 +71,7 @@
 			media = popcorn.media,
 			lightbox,
 			lightboxContent,
+			lightboxContainer,
 			parties, recipients,
 			click,
 			close,
@@ -96,13 +97,14 @@
 					'.popcorn-influenceExplorer { display: none; position: absolute; width: 100px; height: 100px; right: 5%; bottom: 10%; border: blue solid 4px; background-color: rgba(0,0,255, 0.4); cursor: pointer; border-radius: 10px; }\n' +
 					'.popcorn-influenceExplorer-lightbox { display: none; position: absolute; height: 80%; width: 80%; top: 10%; left: 10%; background-color: rgba(255,255,255,0.9); border: white solid 4px; border-radius: 10px; font-family: \'Helvetica Neue\', Helvetica, Arial, sans-serif; min-width: 800px;}\n' +
 					'.popcorn-influenceExplorer-lightbox.active { display: block; }\n' +
-					'.popcorn-influenceExplorer-lightbox > div { position: relative; width: 100%; height: 100%; padding: 20px; box-sizing: border-box; }\n' +
-					'.popcorn-influenceExplorer-lightbox h2 {margin: 0 0 20px 0; border-bottom: #222 solid 1px; padding-bottom: 10px; }\n' +
+					'.popcorn-influenceExplorer-lightbox > div { position: relative; width: 100%; height: 100%; padding: 62px 20px 20px 20px; box-sizing: border-box; }\n' +
+					'.popcorn-influenceExplorer-lightbox h2 {margin: 0 0 20px 0; padding-bottom: 10px; position: absolute; top: 20px; }\n' +
+					'.popcorn-influenceExplorer-lightbox h2 + div { overflow-y: auto; border-top: #222 solid 1px; max-height: 100%; }\n' +
 					'.popcorn-influenceExplorer-lightbox .close { position: absolute; top: 0; right: 10px; margin: 10px; cursor: pointer; }\n' +
-					'.popcorn-influenceExplorer-lightbox .parties { width: 240px; float: left; }\n' +
-					'.popcorn-influenceExplorer-lightbox .recipients { width: 520px; float: right; }\n' +
+					'.popcorn-influenceExplorer-lightbox .parties { width: 240px; }\n' +
+					'.popcorn-influenceExplorer-lightbox .recipients { width: 520px; }\n' +
 					'.popcorn-influenceExplorer-lightbox h3 {margin: 2px 0; }\n' +
-					'.popcorn-influenceExplorer-lightbox section + * {clear: both; }\n' +
+					'.popcorn-influenceExplorer-lightbox section > div { display: inline-block; vertical-align: top; }\n' +
 					'.popcorn-influenceExplorer-lightbox .descr {font-style: italic; color: #444; margin: 0 0 4px 0; }\n' +
 					'.popcorn-influenceExplorer-lightbox .recipients .bar { width: 220px; }\n' +
 					'.popcorn-influenceExplorer-lightbox .recipients .bar > span { display: inline-block; background-color: #CA5703; height: 100%; }\n' +
@@ -121,10 +123,11 @@
 		});
 
 		lightbox = document.createElement('div');
-		lightboxContent = document.createElement('div');
-		lightbox.appendChild(lightboxContent);
 		base.addClass(lightbox, 'popcorn-influenceExplorer-lightbox');
 		base.target.appendChild(lightbox);
+
+		lightboxContainer = document.createElement('div');
+		lightbox.appendChild(lightboxContainer);
 
 		close = document.createElement('span');
 		base.addClass(close, 'close');
@@ -135,7 +138,10 @@
 	
 		e = document.createElement('h2');
 		e.appendChild(document.createTextNode(options.orgName));
-		lightboxContent.appendChild(e);
+		lightboxContainer.appendChild(e);
+
+		lightboxContent = document.createElement('div');
+		lightboxContainer.appendChild(lightboxContent);
 
 		if (options.pacHtml) {
 			e = document.createElement('div');
