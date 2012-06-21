@@ -45,7 +45,8 @@
 			end: 21,
 			orgId: '7416a2e232fa434e99b520d7603e09a9',
 			orgName: 'Campaign to Defeat Barack Obama',
-			html: 'The Campaign to Defeat Barack Obama is a California-based independent expenditure-only committee which has spent money on print, television, and online ads as well as email campaigns and automated calls to oppose President Obama. Track their expenditures and contributions on <a href="http://influenceexplorer.com/organization/campaign-to-defeat-barack-obama/7416a2e232fa434e99b520d7603e09a9" target="_blank">Influence Explorer</a>'
+			pacHtml: 'The Campaign to Defeat Barack  Obama is a California-based organization formed to defeat President  Barack Obama in the 2012 presidential election.',
+			html: 'The Campaign to Defeat Barack Obama is a California-based organization formed to defeat President Barack Obama in the 2012 presidential election. It has not registered to make independent expenditures in Wisconsin elections, even though it sponsored broadcast advertising in the 2011 and 2012 recall elections.'
 		});
 
 		popcorn.influenceExplorer({

@@ -129,17 +129,17 @@
 			base.removeClass(lightbox, 'active');
 		});
 
-		e = document.createElement('div');
-		e.innerHTML = 'Brett put whatever you want in here above the h2';
-		lightboxContent.appendChild(e);
-
+	
 		e = document.createElement('h2');
 		e.appendChild(document.createTextNode(options.orgName));
 		lightboxContent.appendChild(e);
 
-		e = document.createElement('div');
-		e.innerHTML = 'Brett put whatever you want in here below the h2';
-		lightboxContent.appendChild(e);
+		if (options.pacHtml) {
+			e = document.createElement('div');
+			e.innerHTML = options.pacHtml;
+			lightboxContent.appendChild(e);
+		}
+
 
 		lightbox.style.cssText = options.style || '';
 
@@ -282,7 +282,7 @@
 		});
 
 		e = document.createElement('div');
-		e.innerHTML = '<h3>Undisclosed political expenditures</h3>';
+		e.innerHTML = '<h3>Dig Deeper</h3>';
 		lightboxContent.appendChild(e);
 
 		if (options.html) {
