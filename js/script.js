@@ -103,8 +103,8 @@ popcorn.influenceExplorer({
 
 
 		popcorn.stateExplorer({
-			start: 80,
-			end: 120
+			start: 72.1,
+			end: 102.4
 		});
 
 		/*
