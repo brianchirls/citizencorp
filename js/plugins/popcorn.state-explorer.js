@@ -95,7 +95,7 @@
                     '.popcorn-stateExplorer form { border:1px solid rgba(0,0,0,0.2); padding:0.25em 1em; }\n' +
                     '.popcorn-stateExplorer form h3, .popcorn-stateExplorer form select { display:inline-block; }\n' +
                     '.popcorn-stateExplorer form p { margin:0 0 0.5em; }\n' +
-                    '.popcorn-stateExplorer .results { padding: 4px 1em; height:84%; }\n' +
+                    '.popcorn-stateExplorer .results { padding: 4px 1em; height:84%; overflow-y:auto; }\n' +
                     '.popcorn-stateExplorer .results table { width:100%; height:100%; }\n' +
                     '.popcorn-stateExplorer .results table thead tr { display:inline-block; width:100%; }\n' +
                     '.popcorn-stateExplorer .results table th { text-align:left; display:inline-block; }\n' +
@@ -106,8 +106,8 @@
                     '.popcorn-stateExplorer.active { left: 5%; opacity:1; ' + opacityTransition + ' }\n' +
                     '.popcorn-stateExplorer .right { float:right; }\n' +
                     '.popcorn-stateExplorer .left { float:left; }\n' +
-                    '.popcorn-stateExplorer .asc:after { content:".";font-size:0;text-indent:-9999px;display:block;width:0px;height:1px;border:6px solid transparent;border-bottom:6px solid #111;position:relative;left:3px;top:-7px; }\n' +
-                    '.popcorn-stateExplorer .desc:after { content:".";font-size:0;text-indent:-9999px;display:block;width:0px;height:1px;border:6px solid transparent;border-top: 6px solid #111;position:relative;left:3px;top:-1px; }\n' +
+                    '.popcorn-stateExplorer .asc:after { content:".";font-size:0;text-indent:-9999px;display:inline-block;width:0px;height:1px;border:6px solid transparent;border-bottom:6px solid #111;position:relative;left:3px;top:-7px; }\n' +
+                    '.popcorn-stateExplorer .desc:after { content:".";font-size:0;text-indent:-9999px;display:inline-block;width:0px;height:1px;border:6px solid transparent;border-top: 6px solid #111;position:relative;left:3px;top:-1px; }\n' +
                     '.popcorn-stateExplorer .clear { clear:both; }\n'
                 )
             );

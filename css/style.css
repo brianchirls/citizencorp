@@ -154,17 +154,6 @@ td {
 	background-color: #D27B46;
 }
 
-
-#video-container .popcorn-stateExplorer .results {
-	height: 80%;
-	overflow: hidden;
-}
-
-
-#video-container .popcorn-stateExplorer .results table tbody {
-	overflow:scroll;
-}
-
 #video-container .popcorn-stateExplorer tr:nth-child(even) {
 	background-color: rgba(0,0,0,0.1);
 }
