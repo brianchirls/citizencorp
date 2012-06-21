@@ -90,9 +90,10 @@
             styleSheet.setAttribute('type', 'text/css');
             styleSheet.appendChild(
                 document.createTextNode(
-                    '.popcorn-stateExplorer { display:none; width:90%; height:90%; position:absolute; left: 5%; top: 5%; background:#eee; background:rgba(255,255,255,0.8); border-radius:5px; }\n' +
+                    '.popcorn-stateExplorer { display:none; opacity:0; width:90%; height:90%; position:absolute; left: 5%; top: 5%; background:#eee; background:rgba(255,255,255,0.8); border-radius:5px;' +
+                        '-webkit-transition:all 0.25s linear; -moz-transition:all 0.25s linear; -o-transition:all 0.25s linear; transition:all 0.25s linear; }\n' +
                     '.popcorn-stateExplorer form { border:1px solid rgba(0,0,0,0.2); padding:0.25em 1em; }\n' +
-                    '.popcorn-stateExplorer form * { display:inline-block; }\n' +
+                    '.popcorn-stateExplorer form h3, .popcorn-stateExplorer form select { display:inline-block; }\n' +
                     '.popcorn-stateExplorer form p { margin:0 0 0.5em; }\n' +
                     '.popcorn-stateExplorer .results { padding: 4px 1em; height:84%; }\n' +
                     '.popcorn-stateExplorer .results table { width:100%; height:100%; }\n' +
@@ -101,7 +102,7 @@
                     '.popcorn-stateExplorer .results table tbody { overflow-y:auto; height:100%; display:block; }\n' +
                     '.popcorn-stateExplorer.loading .results table { overflow:auto; opacity:0.4; }\n' +
                     '.popcorn-stateExplorer .results table td.number, .popcorn-stateExplorer .results table th.number { text-align:right; }\n' +
-                    '.popcorn-stateExplorer.active { display:block; }\n' +
+                    '.popcorn-stateExplorer.active { display:block; opacity:1; }\n' +
                     '.popcorn-stateExplorer .right { float:right; }\n' +
                     '.popcorn-stateExplorer .left { float:left; }\n' +
                     '.popcorn-stateExplorer .clear { clear:both; }\n'
