@@ -118,6 +118,13 @@ popcorn.influenceExplorer({
 				//state: 'MD'
 			});
 		*/
+
+		popcorn.media.addEventListener('keydown', function(evt) {
+			if (evt.keyCode === 32) {
+				evt.preventDefault();
+			}
+		});
+
 		window.addEventListener('keyup', function(evt) {
 			if (evt.keyCode === 32) {
 				if (popcorn.paused()) {
