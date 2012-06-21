@@ -74,6 +74,7 @@
 			parties, recipients,
 			click,
 			close,
+			dataContainer,
 			e;
 
 		if (!base.target || !options.orgId) {
@@ -133,6 +134,9 @@
 
 		lightbox.style.cssText = options.style || '';
 
+		dataContainer = document.createElement('section');
+		lightboxContent.appendChild(dataContainer);
+
 		addScript('http://transparencydata.com/api/1.0/aggregates/org/' + options.orgId + '/recipients/party_breakdown.json?cycle=2012&apikey=' + options.apikey, function(data) {
 			var pieData = [], i, partiesData = [];
 
@@ -148,7 +152,7 @@
 			if (partiesData.length) {
 				parties = document.createElement('div');
 				base.addClass(parties, 'parties');
-				lightboxContent.appendChild(parties);
+				dataContainer.appendChild(parties);
 				parties.innerHTML = '<h3>Republicans vs. Democrats</h3><p class="descr">in dollars. "other" includes 3rd parties and organizations without official party affiliation.</p>';
 
 				refScript('http://cdnjs.cloudflare.com/ajax/libs/d3/2.8.1/d3.v2.min.js', 'd3', function() {
@@ -207,7 +211,7 @@
 
 				recipients = document.createElement('div');
 				base.addClass(recipients, 'recipients');
-				lightboxContent.appendChild(recipients);
+				dataContainer.appendChild(recipients);
 				recipients.innerHTML = '<h3>Top Recipients</h3><p class="descr">includes contributions from the organization’s employees, their family members, and its political action committee.</p>';
 
 				for (i = 0; i < data.length; i++) {
