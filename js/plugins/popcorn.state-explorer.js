@@ -163,7 +163,7 @@
                 closeButton.addEventListener('click', function(evt){
                     evt.preventDefault();
                     base.removeClass(el, 'active');
-                })
+                });
                 // loadLegislators();
                 try{
                     selectBox.value = window.CORP.request['location'].region_code;
@@ -229,6 +229,7 @@
             loadResultTable = function(state){
                 var activeRequests = 0,
                     stateLegislators = legislatorsByState(state),
+                    requestURL,
                     results = [],
                     handleResult = function(data){
                         for(var i in data){
@@ -250,7 +251,11 @@
                     };
                 base.addClass(el, 'loading');
                 activeRequests++;
-                addScript(contributionsURL + '&recipient_state=' + state + '&apikey=' + options.apikey, {callback: 'stateExplorer_contributions_' + state}, handleResult);
+                requestURL = contributionsURL + '&recipient_state=' + state + '&apikey=' + options.apikey;
+                if(state === ''){
+                    requestURL = requestURL.replace('seat=federal:senate|federal:house|federal:president|state:governor', 'seat=federal:president');
+                }
+                addScript(requestURL, {callback: 'stateExplorer_contributions_' + state}, handleResult);
                 // for(var crp_id in stateLegislators){
                 //     activeRequests++;
                 //     addScript(contributionsURL + '?recipient_ext_id=' + crp_id + '&cycle=2012', handleResult);
