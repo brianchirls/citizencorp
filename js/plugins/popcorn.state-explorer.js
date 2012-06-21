@@ -88,10 +88,10 @@
         if (!styleSheet) {
             styleSheet = document.createElement('style');
             styleSheet.setAttribute('type', 'text/css');
+            var opacityTransition = '-webkit-transition:opacity 0.25s linear; -moz-transition:opacity 0.25s linear; -o-transition:opacity 0.25s linear; transition:opacity 0.25s linear';
             styleSheet.appendChild(
                 document.createTextNode(
-                    '.popcorn-stateExplorer { display:none; opacity:0; width:90%; height:90%; position:absolute; left: 5%; top: 5%; background:#eee; background:rgba(255,255,255,0.8); border-radius:5px;' +
-                        '-webkit-transition:all 0.25s linear; -moz-transition:all 0.25s linear; -o-transition:all 0.25s linear; transition:all 0.25s linear; }\n' +
+                    '.popcorn-stateExplorer { opacity:0; width:90%; height:90%; position:absolute; left:-9999px; top: 5%; background:#eee; background:rgba(255,255,255,0.8); border-radius:5px; ' + opacityTransition + ' }\n' +
                     '.popcorn-stateExplorer form { border:1px solid rgba(0,0,0,0.2); padding:0.25em 1em; }\n' +
                     '.popcorn-stateExplorer form h3, .popcorn-stateExplorer form select { display:inline-block; }\n' +
                     '.popcorn-stateExplorer form p { margin:0 0 0.5em; }\n' +
@@ -102,7 +102,7 @@
                     '.popcorn-stateExplorer .results table tbody { overflow-y:auto; height:100%; display:block; }\n' +
                     '.popcorn-stateExplorer.loading .results table { overflow:auto; opacity:0.4; }\n' +
                     '.popcorn-stateExplorer .results table td.number, .popcorn-stateExplorer .results table th.number { text-align:right; }\n' +
-                    '.popcorn-stateExplorer.active { display:block; opacity:1; }\n' +
+                    '.popcorn-stateExplorer.active { left: 5%; opacity:1; ' + opacityTransition + ' }\n' +
                     '.popcorn-stateExplorer .right { float:right; }\n' +
                     '.popcorn-stateExplorer .left { float:left; }\n' +
                     '.popcorn-stateExplorer .clear { clear:both; }\n'
