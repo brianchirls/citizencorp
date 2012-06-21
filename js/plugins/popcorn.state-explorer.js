@@ -91,7 +91,7 @@
             var opacityTransition = '-webkit-transition:opacity 0.25s linear; -moz-transition:opacity 0.25s linear; -o-transition:opacity 0.25s linear; transition:opacity 0.25s linear';
             styleSheet.appendChild(
                 document.createTextNode(
-                    '.popcorn-stateExplorer { opacity:0; width:90%; height:90%; position:absolute; left:-9999px; top: 5%; background:#eee; background:rgba(255,255,255,0.8); border-radius:5px; ' + opacityTransition + ' }\n' +
+                    '.popcorn-stateExplorer { opacity:0; width:90%; height:90%; position:absolute; left:-9999px; top: 5%; background:#eee; background:rgba(255,255,255,0.94); border-radius:5px; ' + opacityTransition + ' }\n' +
                     '.popcorn-stateExplorer form { border:1px solid rgba(0,0,0,0.2); padding:0.25em 1em; }\n' +
                     '.popcorn-stateExplorer form h3, .popcorn-stateExplorer form select { display:inline-block; }\n' +
                     '.popcorn-stateExplorer form p { margin:0 0 0.5em; }\n' +
