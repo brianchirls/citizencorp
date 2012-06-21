@@ -121,6 +121,7 @@ td {
 
 #video-container .popcorn-influenceExplorer-lightbox > div {
 	width: auto;
+    overflow: auto;
 }
 
 #video-container .popcorn-influenceExplorer-lightbox .recipients {
