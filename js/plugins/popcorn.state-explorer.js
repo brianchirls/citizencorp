@@ -242,7 +242,7 @@
             // query / display helpers
             loadResultTable = function(state){
                 var activeRequests = 0,
-                    stateLegislators = legislatorsByState(state),
+                    // stateLegislators = legislatorsByState(state),
                     requestURL,
                     results = [],
                     handleResult = function(data){
@@ -250,6 +250,7 @@
                             results.push(data[i]);
                         }
                         activeRequests--;
+                        finish();
                     },
                     finish = function(){
                         if(activeRequests === 0){
@@ -259,8 +260,6 @@
                             var tbody = el.querySelector('.results table tbody');
                             tbody.innerHTML = '';
                             renderDataset(tbody);
-                        }else{
-                            setTimeout(finish, 500);
                         }
                     };
                 base.addClass(el, 'loading');
