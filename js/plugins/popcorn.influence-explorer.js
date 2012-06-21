@@ -95,6 +95,7 @@
 					'.popcorn-influenceExplorer-lightbox .parties { width: 240px; float: left; }\n' +
 					'.popcorn-influenceExplorer-lightbox .recipients { width: 520px; float: right; }\n' +
 					'.popcorn-influenceExplorer-lightbox h3 {margin: 2px 0; }\n' +
+					'.popcorn-influenceExplorer-lightbox section + * {clear: both; }\n' +
 					'.popcorn-influenceExplorer-lightbox .descr {font-style: italic; color: #444; margin: 0 0 4px 0; }\n' +
 					'.popcorn-influenceExplorer-lightbox .recipients .bar { width: 220px; }\n' +
 					'.popcorn-influenceExplorer-lightbox .recipients .bar > span { display: inline-block; background-color: #CA5703; height: 100%; }\n' +
@@ -130,7 +131,6 @@
 
 		e = document.createElement('div');
 		e.innerHTML = 'Brett put whatever you want in here above the h2';
-		e.appendChild(document.createTextNode(options.orgName));
 		lightboxContent.appendChild(e);
 
 		e = document.createElement('h2');
@@ -139,7 +139,6 @@
 
 		e = document.createElement('div');
 		e.innerHTML = 'Brett put whatever you want in here below the h2';
-		e.appendChild(document.createTextNode(options.orgName));
 		lightboxContent.appendChild(e);
 
 		lightbox.style.cssText = options.style || '';
@@ -163,7 +162,7 @@
 				parties = document.createElement('div');
 				base.addClass(parties, 'parties');
 				dataContainer.appendChild(parties);
-				parties.innerHTML = '<h3>Republicans vs. Democrats</h3><p class="descr">in dollars. "other" includes 3rd parties and organizations without official party affiliation.</p>';
+				parties.innerHTML = '<h3>Disclosed Political Contributions</h3><p class="descr">in dollars. "other" includes 3rd parties and organizations without official party affiliation.</p>';
 
 				refScript('http://cdnjs.cloudflare.com/ajax/libs/d3/2.8.1/d3.v2.min.js', 'd3', function() {
 					var svg,
@@ -283,8 +282,7 @@
 		});
 
 		e = document.createElement('div');
-		e.innerHTML = 'Brett put whatever you want in here below the charts';
-		e.appendChild(document.createTextNode(options.orgName));
+		e.innerHTML = '<h3>Undisclosed political expenditures</h3>';
 		lightboxContent.appendChild(e);
 
 		if (options.html) {
