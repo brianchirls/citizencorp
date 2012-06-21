@@ -217,15 +217,23 @@
 		addScript('http://transparencydata.com/api/1.0/aggregates/org/' + options.orgId + '/recipients.json?cycle=2012&apikey=' + options.apikey, function(data) {
 			var row, cell, table, i, rec, e, max = 0;
 
-			if (data && data.length) {
-
-				recipients = document.createElement('div');
-				base.addClass(recipients, 'recipients');
-				dataContainer.appendChild(recipients);
-				recipients.innerHTML = '<h3>Top Recipients</h3><p class="descr">includes contributions from the organization’s employees, their family members, and its political action committee.</p>';
-
+			function renderTable(data, wordField, amountField) {
+				var w = [], a = [];
 				for (i = 0; i < data.length; i++) {
-					max = Math.max(max, data[i].total_amount);
+
+					if (typeof wordField === 'function') {
+						w[i] = wordField(data[i]);
+					} else {
+						w[i] = data[i][wordField];
+					}
+
+					if (typeof amountField === 'function') {
+						a[i] = amountField(data[i]);
+					} else {
+						a[i] = data[i][amountField];
+					}
+
+					max = Math.max(max, a[i]);
 				}
 
 				table = document.createElement('table');
@@ -235,11 +243,11 @@
 					row = document.createElement('tr');
 					table.appendChild(row);
 					cell = document.createElement('td');
-					cell.appendChild(document.createTextNode(rec.name + ((rec.party && rec.state) ? ' ' + rec.party + '-' + rec.state : '')));
+					cell.appendChild(document.createTextNode(w[i]));
 					row.appendChild(cell);
 
 					cell = document.createElement('td');
-					cell.appendChild(document.createTextNode('$' + rec.total_amount));
+					cell.appendChild(document.createTextNode('$' + a[i]));
 					row.appendChild(cell);
 
 					if (max) {
@@ -247,11 +255,30 @@
 						base.addClass(cell, 'bar');
 						e = document.createElement('span');
 						e.innerHTML = '&nbsp;';
-						e.style.width = 100 * rec.total_amount / max + '%';
+						e.style.width = 100 * a[i] / max + '%';
 						cell.appendChild(e);
 						row.appendChild(cell);
 					}
 				}
+			}
+
+			if (data && data.length) {
+				recipients = document.createElement('div');
+				base.addClass(recipients, 'recipients');
+				dataContainer.appendChild(recipients);
+				recipients.innerHTML = '<h3>Top Recipients</h3><p class="descr">includes contributions from the organization’s employees, their family members, and its political action committee.</p>';
+				renderTable(data, function(rec) {
+					return rec.name + ((rec.party && rec.state) ? ' ' + rec.party + '-' + rec.state : '');
+				}, 'total_amount');
+
+			} else {
+				addScript('http://transparencydata.com/api/1.0/aggregates/org/' + options.orgId + '/fec_top_contribs.json?cycle=2012&apikey=' + options.apikey, function(data) {
+					recipients = document.createElement('div');
+					base.addClass(recipients, 'recipients');
+					dataContainer.appendChild(recipients);
+					recipients.innerHTML = '<h3>Top Contributors</h3><p class="descr">top donors giving over $100,000</p>';
+					renderTable(data, 'contributor_name', 'amount');
+				});
 			}
 		});
 
