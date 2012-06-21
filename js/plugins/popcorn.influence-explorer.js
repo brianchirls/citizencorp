@@ -128,7 +128,17 @@
 			base.removeClass(lightbox, 'active');
 		});
 
+		e = document.createElement('div');
+		e.innerHTML = 'Brett put whatever you want in here above the h2';
+		e.appendChild(document.createTextNode(options.orgName));
+		lightboxContent.appendChild(e);
+
 		e = document.createElement('h2');
+		e.appendChild(document.createTextNode(options.orgName));
+		lightboxContent.appendChild(e);
+
+		e = document.createElement('div');
+		e.innerHTML = 'Brett put whatever you want in here below the h2';
 		e.appendChild(document.createTextNode(options.orgName));
 		lightboxContent.appendChild(e);
 
@@ -244,6 +254,11 @@
 				}
 			}
 		});
+
+		e = document.createElement('div');
+		e.innerHTML = 'Brett put whatever you want in here below the charts';
+		e.appendChild(document.createTextNode(options.orgName));
+		lightboxContent.appendChild(e);
 
 		if (options.html) {
 			e = document.createElement('div');
