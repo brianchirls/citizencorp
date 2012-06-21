@@ -126,7 +126,7 @@
                             <thead><tr>\
                                 <th width="25%"><a class="sortable" href="#" data-sortfunction="contributionsByName">Recipient Name</a></th>\
                                 <th width="27%"><a class="sortable" href="#" data-sortfunction="contributionsByContributor">Contributor</a></th>\
-                                <th width="13%">Race</th>\
+                                <th width="13%">Seat</th>\
                                 <th width="14%"><a class="sortable" href="#" data-sortfunction="contributionsByDate">Date</a></th>\
                                 <th class="number"  width="16%"><a class="sortable current desc" href="#" data-sortfunction="contributionsByAmount">Amount</a></th>\
                             </tr></thead>\
@@ -270,7 +270,7 @@
                 for(var i in dataset){
                     var row = document.createElement('tr'),
                         result = dataset[i];
-                    row.innerHTML = '<td width="23%><a href="' + searchURL + '?query=' + encodeURIComponent(result.recipient_name) + '">' + result.recipient_name + '</a></td>';
+                    row.innerHTML = '<td width="23%"><a href="' + searchURL + '?query=' + encodeURIComponent(result.recipient_name.trim()) + '">' + result.recipient_name + '</a></td>';
                     // if(result.contributor_name != result.organization_name){
                     //     row.innerHTML += '<td><a href="' + searchURL + '?query=' + encodeURIComponent(result.contributor_name) + '">' + result.contributor_name + '</a></td>';
                     // }else{
