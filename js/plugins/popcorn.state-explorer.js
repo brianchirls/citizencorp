@@ -99,14 +99,15 @@
                     '.popcorn-stateExplorer .results table { width:100%; height:100%; }\n' +
                     '.popcorn-stateExplorer .results table thead tr { display:inline-block; width:100%; }\n' +
                     '.popcorn-stateExplorer .results table th { text-align:left; display:inline-block; }\n' +
-                    '.popcorn-stateExplorer .results table tbody { overflow-y:auto; height:100%; display:block; }\n' +
+                    '.popcorn-stateExplorer .results table tbody { overflow-y:auto; height:100%; display:block; font-family:consolas, monaco, courier, monospace;font-size:0.9em; }\n' +
+                    '.popcorn-stateExplorer .results table tbody td { padding:4px 2px; }\n' +
                     '.popcorn-stateExplorer.loading .results table { overflow:auto; opacity:0.4; }\n' +
                     '.popcorn-stateExplorer .results table td.number, .popcorn-stateExplorer .results table th.number { text-align:right; }\n' +
                     '.popcorn-stateExplorer.active { left: 5%; opacity:1; ' + opacityTransition + ' }\n' +
                     '.popcorn-stateExplorer .right { float:right; }\n' +
                     '.popcorn-stateExplorer .left { float:left; }\n' +
-                    '.popcorn-stateExplorer .asc:after { display:block;width:0;height:0;border:6px solid transparent;border-bottom-color:#111; }\n' +
-                    '.popcorn-stateExplorer .desc:after { display:block;width:0;height:0;border:6px solid transparent;border-top-color:#111; }\n' +
+                    '.popcorn-stateExplorer .asc:after { content:".";font-size:0;text-indent:-9999px;display:block;width:0px;height:1px;border:6px solid transparent;border-bottom:6px solid #111;position:relative;left:3px;top:-7px; }\n' +
+                    '.popcorn-stateExplorer .desc:after { content:".";font-size:0;text-indent:-9999px;display:block;width:0px;height:1px;border:6px solid transparent;border-top: 6px solid #111;position:relative;left:3px;top:-1px; }\n' +
                     '.popcorn-stateExplorer .clear { clear:both; }\n'
                 )
             );
@@ -129,7 +130,7 @@
                             <thead><tr>\
                                 <th width="25%"><a class="sortable" href="#" data-sortfunction="contributionsByName">Recipient Name</a></th>\
                                 <th width="27%"><a class="sortable" href="#" data-sortfunction="contributionsByContributor">Contributor</a></th>\
-                                <th width="13%">Seat</th>\
+                                <th width="13%"><a class="sortable" href="#" data-sortfunction="contributionsBySeat">Seat</a></th>\
                                 <th width="14%"><a class="sortable" href="#" data-sortfunction="contributionsByDate">Date</a></th>\
                                 <th class="number"  width="16%"><a class="sortable current desc" href="#" data-sortfunction="contributionsByAmount">Amount</a></th>\
                             </tr></thead>\
@@ -308,14 +309,14 @@
                     var row = document.createElement('tr'),
                         result = dataset[i];
                     result.date = moment(result.date, 'YYYY-MM-DD');
-                    row.innerHTML = '<td width="23%"><a href="' + searchURL + '?query=' + encodeURIComponent(result.recipient_name.trim()) + '">' + result.recipient_name + '</a></td>';
+                    row.innerHTML = '<td width="23%"><a target="_blank" href="' + searchURL + '?query=' + encodeURIComponent(result.recipient_name.trim()) + '">' + result.recipient_name + '</a></td>';
                     // if(result.contributor_name != result.organization_name){
                     //     row.innerHTML += '<td><a href="' + searchURL + '?query=' + encodeURIComponent(result.contributor_name) + '">' + result.contributor_name + '</a></td>';
                     // }else{
                     row.innerHTML += '<td width="25%">' + result.contributor_name + '</td>';
                     // }
                     row.innerHTML += '<td width="13%">' + getRace(result.seat) + '</td>' +
-                                     '<td width="14%">' + result.date.format('MMM Do, YYYY') + '</td>' +
+                                     '<td width="14%">' + result.date.format('MMM DD, YYYY') + '</td>' +
                                      '<td class="number" width="16%">$' + formatMoney(result.amount, 2, '.', ',') + '</td>';
                     target.appendChild(row);
                 }
@@ -345,9 +346,7 @@
 
                 touched = Date.now();
             }).bind(this),
-            sortBy = function(property, a, b, options){
-                a = a[property];
-                b = b[property];
+            sortBy = function(a, b, options){
                 if(!isNaN(a)){
                     a = parseFloat(a);
                 }
@@ -366,34 +365,34 @@
             },
             sortFunctions = {
                 contributionsByNameAsc: function(a, b){
-                    return sortBy('recipient_name', a, b);
+                    return sortBy(a.recipient_name, b.recipient_name);
                 },
                 contributionsByNameDesc: function(a, b){
-                    return sortBy('recipient_name', a, b, {direction: 'desc'});
+                    return sortBy(a.recipient_name, b.recipient_name, {direction: 'desc'});
                 },
                 contributionsByContributorAsc: function(a, b){
-                    return sortBy('contributor_name', a, b);
+                    return sortBy(a.contributor_name, b.contributor_name);
                 },
                 contributionsByContributorDesc: function(a, b){
-                    return sortBy('contributor_name', a, b, {direction: 'desc'});
+                    return sortBy(a.contributor_name, b.contributor_name, {direction: 'desc'});
                 },
                 contributionsByAmountAsc: function(a, b){
-                    return sortBy('amount', a, b);
+                    return sortBy(a.amount, b.amount);
                 },
                 contributionsByAmountDesc: function(a, b){
-                    return sortBy('amount', a, b, {direction: 'desc'});
+                    return sortBy(a.amount, b.amount, {direction: 'desc'});
                 },
                 contributionsByDateAsc: function(a, b){
-                    return sortBy('date', a, b);
+                    return sortBy(a.date.valueOf(), b.date.valueOf());
                 },
                 contributionsByDateDesc: function(a, b){
-                    return sortBy('date', a, b, {direction: 'desc'});
+                    return sortBy(a.date.valueOf(), b.date.valueOf(), {direction: 'desc'});
                 },
-                contributionsByRaceAsc: function(a, b){
-                    return sortBy('seat', a, b);
+                contributionsBySeatAsc: function(a, b){
+                    return sortBy(getRace(a.seat), getRace(b.seat));
                 },
-                contributionsByRaceDesc: function(a, b){
-                    return sortBy('seat', a, b, {direction: 'desc'});
+                contributionsBySeatDesc: function(a, b){
+                    return sortBy(getRace(a.seat), getRace(b.seat), {direction: 'desc'});
                 }
             }
             ;
