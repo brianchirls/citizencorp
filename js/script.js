@@ -87,7 +87,7 @@
 			orgId: 'a0951518abe24d7a95cb99dac25caf90',
 			orgName: 'Restore Our Future, Inc.',
 			pacHtml: 'ABOUT: Restore Our Future is a Super PAC that has raised more than $60 million to help secure the Republican nomination, and the Presidency, for Mitt Romney. <a href="http://reporting.sunlightfoundation.com/outside-spending/committee/restore-our-future-inc/C00490045/" target="_blank">Read More</a> ',
-			html: 'Houston, Texas-based home builder Bob Perry has contributed $3,000,000.00 to Restore our Future, making him the largest single contributor.<p>Perry also contributed $500,000 to Gov. Scott Walker. What does he expect in return? <a href=-"http://videos-origin.mozilla.org/serv/webmademovies/silverhacks/citizencorp/tiaciara.webm" target="_blank">See what Scott Walker’s spokeswoman told us:</a>'
+			html: 'Houston, Texas-based home builder Bob Perry has contributed $3,000,000.00 to Restore our Future, making him the largest single contributor.<p>Perry also contributed $500,000 to Gov. Scott Walker. What does he expect in return? <a href="http://videos-origin.mozilla.org/serv/webmademovies/silverhacks/citizencorp/tiaciara.webm" target="_blank">See what Scott Walker’s spokeswoman told us:</a>'
 		});
 
 		popcorn.influenceExplorer({
