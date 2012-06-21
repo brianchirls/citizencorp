@@ -120,7 +120,7 @@
             contributionsURL = 'http://d3j189fadzggbl.cloudfront.net/api/1.0/contributions.json?cycle=2012&for_against=for&amount=>|5000&seat=federal:senate|federal:house|federal:president|state:governor&per_page=1000',
             searchURL = 'http://influenceexplorer.com/search',
             formHTML = '<form>\
-                        <h3>Explore the largest contributions in your state:</h3>\
+                        <h3>Explore contributions in your state:</h3>\
                         <select><option value="">Presidential</option></select><a class="close right" href="#">x</a>\
                         <p>Contributions shown are greater than or equal to $5,000, and given during the 2012 election cycle.</p>\
                         <div class="clear"></div>\
