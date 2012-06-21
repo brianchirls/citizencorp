@@ -75,7 +75,7 @@ thead > tr {
 }
 
 td {
-	padding: 2px;
+	padding: 4px 2px;
 }
 
 
@@ -121,7 +121,6 @@ td {
 
 #video-container .popcorn-influenceExplorer-lightbox > div {
 	width: auto;
-    overflow: auto;
 }
 
 #video-container .popcorn-influenceExplorer-lightbox .recipients {
@@ -158,7 +157,7 @@ td {
 
 #video-container .popcorn-stateExplorer .results {
 	height: 80%;
-	overflow: hiddern;
+	overflow: hidden;
 }
 
 
