@@ -95,7 +95,7 @@
                     '.popcorn-stateExplorer form { padding:1.5em 1.5em 0.5em; }\n' +
                     '.popcorn-stateExplorer form h2, .popcorn-stateExplorer form select { display:inline-block; }\n' +
                     '.popcorn-stateExplorer form p { margin:0 0 0.5em; }\n' +
-                    '.popcorn-stateExplorer .results { padding: 0 1em; height:80%; overflow-y:auto; }\n' +
+                    '.popcorn-stateExplorer .results { padding: 0 1em; height:77%; overflow-y:auto; }\n' +
                     '.popcorn-stateExplorer .results table { width:100%; height:100%; }\n' +
                     '.popcorn-stateExplorer .results table thead tr { display:inline-block; width:100%; }\n' +
                     '.popcorn-stateExplorer .results table th { text-align:left; display:inline-block; }\n' +
@@ -108,7 +108,7 @@
                     '.popcorn-stateExplorer .left { float:left; }\n' +
                     '.popcorn-stateExplorer .asc:after { content:".";font-size:0;text-indent:-9999px;display:inline-block;width:0px;height:1px;border:6px solid transparent;border-bottom:6px solid #111;position:relative;left:3px;top:-2px; }\n' +
                     '.popcorn-stateExplorer .desc:after { content:".";font-size:0;text-indent:-9999px;display:inline-block;width:0px;height:1px;border:6px solid transparent;border-top: 6px solid #111;position:relative;left:3px;top:6px; }\n' +
-                    '.popcorn-stateExplorer .close { color:#222; }\n' + 
+                    '.popcorn-stateExplorer .close { color:#222; }\n' +
                     '.popcorn-stateExplorer .clear { clear:both; }\n'
                 )
             );
@@ -121,9 +121,9 @@
             contributionsURL = 'http://d3j189fadzggbl.cloudfront.net/api/1.0/contributions.json?cycle=2012&for_against=for&amount=>|5000&seat=federal:senate|federal:house|federal:president|state:governor&per_page=1000',
             searchURL = 'http://influenceexplorer.com/search',
             formHTML = '<form>\
-                        <h2>Explore contributions in your state:</h2>\
+                        <h2>Explore contributions to candidates in your state:</h2>\
                         <select><option value="">Presidential</option></select><a class="close right" href="#">x</a>\
-                        <p>Contributions shown are greater than or equal to $5,000, and given during the 2012 election cycle.</p>\
+                        <p>Contributions shown are greater than or equal to $5,000, and given during the 2012 election cycle. Data includes independent expenditures in support of candidates as well as direct contributions. Click table headers to sort.</p>\
                         <div class="clear"></div>\
                         </form>',
             resultsHTML = '<div class="results">\
