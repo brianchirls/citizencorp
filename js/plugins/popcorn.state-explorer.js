@@ -140,6 +140,10 @@
             dataset = [],
             states = {'AL': 'Alabama', 'AK': 'Alaska', 'AZ': 'Arizona', 'AR': 'Arkansas', 'CA': 'California', 'CO': 'Colorado', 'CT': 'Connecticut', 'DE': 'Delaware', 'DC': 'District of Columbia', 'FL': 'Florida', 'GA': 'Georgia', 'HI': 'Hawaii', 'ID': 'Idaho', 'IL': 'Illinois', 'IN': 'Indiana', 'IA': 'Iowa', 'KS': 'Kansas', 'KY': 'Kentucky', 'LA': 'Louisiana', 'ME': 'Maine', 'MD': 'Maryland', 'MA': 'Massachusetts', 'MI': 'Michigan', 'MN': 'Minnesota', 'MO': 'Missouri', 'MT': 'Montana', 'NE': 'Nebraska', 'NV': 'Nevada', 'NH': 'New Hampshire', 'NJ': 'New Jersey', 'NM': 'New Mexico', 'NY': 'New York', 'NC': 'North Carolina', 'ND': 'North Dakota', 'OH': 'Ohio', 'OK': 'Oklahoma', 'OR': 'Oregon', 'PA': 'Pennsylvania', 'RI': 'Rhode Island', 'SC': 'South Carolina', 'SD': 'South Dakota', 'TN': 'Tennessee', 'TX': 'Texas', 'UT': 'Utah', 'VT': 'Vermont', 'VA': 'Virginia', 'WA': 'Washington', 'WV': 'West Virginia', 'WI': 'Wisconsin', 'WY': 'Wyoming'},
             races = {'federal:house': 'House', 'federal:senate': 'Senate', 'federal:president': 'Presidential', 'state:governor': 'Governor'},
+            loopEndTime,
+            idleStartTime,
+            originalVolume,
+            touched,
             // initializer function
             init = function(){
                 el.innerHTML = formHTML + resultsHTML;
@@ -173,8 +177,13 @@
                     try{
                         var state = evt.target.value;
                         loadResultTable(state);
+                        touched = Date.now();
                     }catch(e){}
                 });
+
+                //set up looping
+                loopEndTime = options.end;
+                loopEndTime -= Math.min(5, (options.end - options.start / 10));
             },
             // hash accessors
             getState = function(orig){
@@ -305,6 +314,8 @@
                 cb = evt.target.getAttribute('data-sortfunction') + order;
                 dataset.sort(sortFunctions[cb]);
                 renderDataset();
+
+                touched = Date.now();
             }).bind(this),
             sortBy = function(property, a, b, options){
                 a = a[property];
@@ -363,14 +374,30 @@
         return {
             _setup: function(event, options) {
                 init();
-            },
-            start: function( event, options ) {
                 var state = el.querySelector('form select').value;
                 loadResultTable(state);
+            },
+            frame: function(event, options, time) {
+                if (popcorn.paused()) {
+                    return;
+                }
+                if (touched && Date.now() - touched >= 180000 || !touched && (time - idleStartTime) > 20) {
+                    popcorn.currentTime(options.end);
+                } else if (time >= loopEndTime) {
+                    popcorn.currentTime(options.start);
+                }
+            },
+            start: function( event, options ) {
                 base.addClass(el, 'active');
+
+                originalVolume = popcorn.volume();
+                popcorn.volume(Math.min(0.1, originalVolume));
+                touched = false;
+                idleStartTime = popcorn.currentTime();
             },
             end: function( event, options ) {
                 base.removeClass(el, 'active');
+                popcorn.volume(originalVolume);
             },
             _teardown: function( options ) {
             }
