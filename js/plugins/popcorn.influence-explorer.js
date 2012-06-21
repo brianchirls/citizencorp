@@ -131,21 +131,11 @@
 		e.appendChild(document.createTextNode(options.orgName));
 		lightboxContent.appendChild(e);
 
-		parties = document.createElement('div');
-		base.addClass(parties, 'parties');
-		lightboxContent.appendChild(parties);
-		parties.innerHTML = '<h3>Republicans vs. Democrats</h3><p class="descr">in dollars. "other" includes 3rd parties and organizations without official party affiliation.</p>';
-
-		recipients = document.createElement('div');
-		base.addClass(recipients, 'recipients');
-		lightboxContent.appendChild(recipients);
-		recipients.innerHTML = '<h3>Top Recipients</h3><p class="descr">includes contributions from the organization’s employees, their family members, and its political action committee.</p>';
-
 		lightbox.style.cssText = options.style || '';
 
 		addScript('http://transparencydata.com/api/1.0/aggregates/org/' + options.orgId + '/recipients/party_breakdown.json?cycle=2012&apikey=' + options.apikey, function(data) {
 			var pieData = [], i, partiesData = [];
-			//for (i = 0; i < data.length; i++) {
+
 			for (i in data) {
 				pieData.push(data[i][1]);
 				partiesData.push({
@@ -154,83 +144,99 @@
 					amount: data[i][1]
 				});
 			}
-			refScript('http://cdnjs.cloudflare.com/ajax/libs/d3/2.8.1/d3.v2.min.js', 'd3', function() {
-				var svg,
-					w = 240, h = 240,
-					r = Math.min(w, h) / 2,
-					arcs, donut, lines, arc,
-					colors = {
-						'Democrats': '#0200e6',
-						'Republicans': '#e60002'
-					};
 
-				svg = d3.select(parties).append('svg:svg')
-					.attr('width', w)
-					.attr('height', h)
-					.append('svg:g')
-					.attr('transform', 'translate(' + w / 2 + "," + h / 2 + ')');
+			if (partiesData.length) {
+				parties = document.createElement('div');
+				base.addClass(parties, 'parties');
+				lightboxContent.appendChild(parties);
+				parties.innerHTML = '<h3>Republicans vs. Democrats</h3><p class="descr">in dollars. "other" includes 3rd parties and organizations without official party affiliation.</p>';
 
-				arc = d3.svg.arc().innerRadius(r - 100).outerRadius(r - 20);
-				donut = d3.layout.pie().sort(null);
+				refScript('http://cdnjs.cloudflare.com/ajax/libs/d3/2.8.1/d3.v2.min.js', 'd3', function() {
+					var svg,
+						w = 240, h = 240,
+						r = Math.min(w, h) / 2,
+						arcs, donut, lines, arc,
+						colors = {
+							'Democrats': '#0200e6',
+							'Republicans': '#e60002'
+						};
 
-				arc.startAngle(function(d) {
-					return d.startAngle;
-				});
+					svg = d3.select(parties).append('svg:svg')
+						.attr('width', w)
+						.attr('height', h)
+						.append('svg:g')
+						.attr('transform', 'translate(' + w / 2 + "," + h / 2 + ')');
 
-				arcs = svg.selectAll('path')
-					.data(donut(pieData))
-					.enter().append('svg:path')
-					.attr('fill', function(d, i) {
-						//return color(i);
-						return colors[partiesData[i].party] || '#aaa';
-					})
-					.attr('d', arc);
-					//.exit().remove();
-				/*
-				lines = svg.selectAll('line').data(partiesData);
-				lines.enter().append('svg:line')
-					.attr('x1', 0)
-					.attr('x2', 0)
-					.attr('y1', -r - 3)
-					.attr('y2', -r - 8)
-					.attr('stroke', 'black')
-					.attr('transform', function(d) {
-						return 'rotate(' + ((d.startAngle + d.endAngle) / 2 * 180/Math.PI) + ')';
+					arc = d3.svg.arc().innerRadius(r - 100).outerRadius(r - 20);
+					donut = d3.layout.pie().sort(null);
+
+					arc.startAngle(function(d) {
+						return d.startAngle;
 					});
-				lines.exit();
-				*/
-			});
+
+					arcs = svg.selectAll('path')
+						.data(donut(pieData))
+						.enter().append('svg:path')
+						.attr('fill', function(d, i) {
+							//return color(i);
+							return colors[partiesData[i].party] || '#aaa';
+						})
+						.attr('d', arc);
+						//.exit().remove();
+					/*
+					lines = svg.selectAll('line').data(partiesData);
+					lines.enter().append('svg:line')
+						.attr('x1', 0)
+						.attr('x2', 0)
+						.attr('y1', -r - 3)
+						.attr('y2', -r - 8)
+						.attr('stroke', 'black')
+						.attr('transform', function(d) {
+							return 'rotate(' + ((d.startAngle + d.endAngle) / 2 * 180/Math.PI) + ')';
+						});
+					lines.exit();
+					*/
+				});
+			}
 		});
 
 		addScript('http://transparencydata.com/api/1.0/aggregates/org/' + options.orgId + '/recipients.json?cycle=2012&apikey=' + options.apikey, function(data) {
 			var row, cell, table, i, rec, e, max = 0;
 
-			for (i = 0; i < data.length; i++) {
-				max = Math.max(max, data[i].total_amount);
-			}
+			if (data && data.length) {
 
-			table = document.createElement('table');
-			recipients.appendChild(table);
-			for (i = 0; i < data.length; i++) {
-				rec = data[i];
-				row = document.createElement('tr');
-				table.appendChild(row);
-				cell = document.createElement('td');
-				cell.appendChild(document.createTextNode(rec.name + ((rec.party && rec.state) ? ' ' + rec.party + '-' + rec.state : '')));
-				row.appendChild(cell);
+				recipients = document.createElement('div');
+				base.addClass(recipients, 'recipients');
+				lightboxContent.appendChild(recipients);
+				recipients.innerHTML = '<h3>Top Recipients</h3><p class="descr">includes contributions from the organization’s employees, their family members, and its political action committee.</p>';
 
-				cell = document.createElement('td');
-				cell.appendChild(document.createTextNode('$' + rec.total_amount));
-				row.appendChild(cell);
+				for (i = 0; i < data.length; i++) {
+					max = Math.max(max, data[i].total_amount);
+				}
 
-				if (max) {
+				table = document.createElement('table');
+				recipients.appendChild(table);
+				for (i = 0; i < data.length; i++) {
+					rec = data[i];
+					row = document.createElement('tr');
+					table.appendChild(row);
 					cell = document.createElement('td');
-					base.addClass(cell, 'bar');
-					e = document.createElement('span');
-					e.innerHTML = '&nbsp;';
-					e.style.width = 100 * rec.total_amount / max + '%';
-					cell.appendChild(e);
+					cell.appendChild(document.createTextNode(rec.name + ((rec.party && rec.state) ? ' ' + rec.party + '-' + rec.state : '')));
 					row.appendChild(cell);
+
+					cell = document.createElement('td');
+					cell.appendChild(document.createTextNode('$' + rec.total_amount));
+					row.appendChild(cell);
+
+					if (max) {
+						cell = document.createElement('td');
+						base.addClass(cell, 'bar');
+						e = document.createElement('span');
+						e.innerHTML = '&nbsp;';
+						e.style.width = 100 * rec.total_amount / max + '%';
+						cell.appendChild(e);
+						row.appendChild(cell);
+					}
 				}
 			}
 		});

@@ -39,14 +39,7 @@
 			orgName: 'Americans for Prosperity',
 			html: 'Americans for Prosperity spent millions on television ads in Wisconsin in support of Gov. Walker in 2011-2012, according to local television ad buy reports reviewed by the Wisconsin Democracy Campaign. These expenditures are not required to be disclosed publicly.'
 		});
-/*
-		popcorn.influenceExplorer({
-			start: 6.2,
-			end: 10,
-			orgId: 'bdfd0d138c4c474d842a6e4d85aa8b0a',
-			orgName: 'Republican Governors Association'
-		});
-*/
+
 		popcorn.influenceExplorer({
 			start: 15,
 			end: 21,
