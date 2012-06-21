@@ -213,6 +213,10 @@
                     return names[0];
                 }
             },
+            formatMoney = function(n, c, d, t){
+                var c = isNaN(c = Math.abs(c)) ? 2 : c, d = d == undefined ? "," : d, t = t == undefined ? "." : t, s = n < 0 ? "-" : "", i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", j = (j = i.length) > 3 ? j % 3 : 0;
+                return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+            },
             // legislator utils
             loadLegislators = function(){
                 addScript(legislatorsURL + '?apikey=' + options.apikey, {callbackParameter: 'jsonp'}, function(data){
@@ -280,6 +284,7 @@
                 for(var i in dataset){
                     var row = document.createElement('tr'),
                         result = dataset[i];
+                    result.date = moment(result.date, 'YYYY-MM-DD');
                     row.innerHTML = '<td width="23%"><a href="' + searchURL + '?query=' + encodeURIComponent(result.recipient_name.trim()) + '">' + result.recipient_name + '</a></td>';
                     // if(result.contributor_name != result.organization_name){
                     //     row.innerHTML += '<td><a href="' + searchURL + '?query=' + encodeURIComponent(result.contributor_name) + '">' + result.contributor_name + '</a></td>';
@@ -287,8 +292,8 @@
                     row.innerHTML += '<td width="25%">' + result.contributor_name + '</td>';
                     // }
                     row.innerHTML += '<td width="13%">' + getRace(result.seat) + '</td>' +
-                                    '<td width="14%">' + result.date + '</td>' +
-                                    '<td class="number" width="16%">$' + result.amount + '</td>';
+                                     '<td width="14%">' + result.date.format('MMM Do, YYYY') + '</td>' +
+                                     '<td class="number" width="16%">$' + formatMoney(result.amount, 2, '.', ',') + '</td>';
                     target.appendChild(row);
                 }
             },
