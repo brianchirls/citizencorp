@@ -106,8 +106,8 @@
                     '.popcorn-stateExplorer.active { left: 5%; opacity:1; ' + opacityTransition + ' }\n' +
                     '.popcorn-stateExplorer .right { float:right; }\n' +
                     '.popcorn-stateExplorer .left { float:left; }\n' +
-                    '.popcorn-stateExplorer .asc:after { content:".";font-size:0;text-indent:-9999px;display:inline-block;width:0px;height:1px;border:6px solid transparent;border-bottom:6px solid #111;position:relative;left:3px;top:-3px; }\n' +
-                    '.popcorn-stateExplorer .desc:after { content:".";font-size:0;text-indent:-9999px;display:inline-block;width:0px;height:1px;border:6px solid transparent;border-top: 6px solid #111;position:relative;left:3px;top:5px; }\n' +
+                    '.popcorn-stateExplorer .asc:after { content:".";font-size:0;text-indent:-9999px;display:inline-block;width:0px;height:1px;border:6px solid transparent;border-bottom:6px solid #111;position:relative;left:3px;top:-2px; }\n' +
+                    '.popcorn-stateExplorer .desc:after { content:".";font-size:0;text-indent:-9999px;display:inline-block;width:0px;height:1px;border:6px solid transparent;border-top: 6px solid #111;position:relative;left:3px;top:6px; }\n' +
                     '.popcorn-stateExplorer .close { color:#222; }\n' + 
                     '.popcorn-stateExplorer .clear { clear:both; }\n'
                 )
