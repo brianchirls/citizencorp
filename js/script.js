@@ -47,7 +47,7 @@
 			orgId: '7416a2e232fa434e99b520d7603e09a9',
 			orgName: 'Campaign to Defeat Barack Obama',
 			pacHtml: 'The Campaign to Defeat Barack  Obama is a California-based organization formed to defeat President  Barack Obama in the 2012 presidential election.',
-			html: 'The Campaign to Defeat Barack Obama is a California-based organization formed to defeat President Barack Obama in the 2012 presidential election. It has not registered to make independent expenditures in Wisconsin elections, even though it sponsored broadcast advertising in the 2011 and 2012 recall elections.'
+			html: 'The Campaign to Defeat Barack Obama  has not registered to make independent expenditures in Wisconsin elections, even though it sponsored broadcast advertising in the 2011 and 2012 recall elections.The group is closely affiliated with prominent national Tea Party activists. Joe Wierzbicki, one of the group\'s leaders explains the group\'s interest in Wisconsin: "The reason we\'ve  been so focused on Wisconsin is that the ramifications of the recall election are huge. There are ten Electoral Votes at stake here in  Wisconsin, and this will likely be one of the most important swing  states come November." (<a href="http://prospect.org/article/campaign-defeat-barack-obama-focused-largely-wisconsin">The Campaign to Defeat Barack Obama, Focused Largely in Wisconsin</a>, The American Prospect, April 25, 2012)'
 		});
 
 popcorn.influenceExplorer({
