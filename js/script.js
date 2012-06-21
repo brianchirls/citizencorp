@@ -77,8 +77,8 @@ popcorn.influenceExplorer({
 		});
 		
 		popcorn.influenceExplorer({
-			start: '4:43',
-			end: '4:17',
+				start: '5:25',
+			end: '5:32',
 			orgId: 'a0951518abe24d7a95cb99dac25caf90',
 			orgName: 'Restore Our Future, Inc.',
 			pacHtml: 'ABOUT: Restore Our Future is a Super PAC that has raised more than $60 million to help secure the Republican nomination, and the Presidency, for Mitt Romney. <a href="http://reporting.sunlightfoundation.com/outside-spending/committee/restore-our-future-inc/C00490045/">Read More</a> ',
