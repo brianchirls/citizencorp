@@ -184,6 +184,10 @@
                 //set up looping
                 loopEndTime = options.end;
                 loopEndTime -= Math.min(5, (options.end - options.start / 10));
+                el.querySelector('.results table tbody').addEventListener('scroll', function() {
+                    touched = Date.now();
+                });
+
             },
             // hash accessors
             getState = function(orig){
