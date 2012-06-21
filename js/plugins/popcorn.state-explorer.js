@@ -309,6 +309,12 @@
                     var row = document.createElement('tr'),
                         result = dataset[i];
                     result.date = moment(result.date, 'YYYY-MM-DD');
+                    try{
+                        result.formattedDate = result.date.format('MMM DD, YYYY');
+                    }catch(e){
+                        result.formattedDate = '';
+                    }
+                    
                     row.innerHTML = '<td width="23%"><a target="_blank" href="' + searchURL + '?query=' + encodeURIComponent(result.recipient_name.trim()) + '">' + result.recipient_name + '</a></td>';
                     // if(result.contributor_name != result.organization_name){
                     //     row.innerHTML += '<td><a href="' + searchURL + '?query=' + encodeURIComponent(result.contributor_name) + '">' + result.contributor_name + '</a></td>';
@@ -316,7 +322,7 @@
                     row.innerHTML += '<td width="25%">' + result.contributor_name + '</td>';
                     // }
                     row.innerHTML += '<td width="13%">' + getRace(result.seat) + '</td>' +
-                                     '<td width="14%">' + result.date.format('MMM DD, YYYY') + '</td>' +
+                                     '<td width="14%">' + result.formattedDate + '</td>' +
                                      '<td class="number" width="16%">$' + formatMoney(result.amount, 2, '.', ',') + '</td>';
                     target.appendChild(row);
                 }
