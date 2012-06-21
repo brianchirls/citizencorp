@@ -424,7 +424,7 @@
                 base.addClass(el, 'active');
 
                 originalVolume = popcorn.volume();
-                popcorn.volume(Math.min(0.1, originalVolume));
+                popcorn.volume(Math.min(0.6, originalVolume));
                 touched = false;
                 idleStartTime = popcorn.currentTime();
 
