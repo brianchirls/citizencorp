@@ -48,6 +48,22 @@
 			html: 'The Campaign to Defeat Barack Obama is a California-based independent expenditure-only committee which has spent money on print, television, and online ads as well as email campaigns and automated calls to oppose President Obama. Track their expenditures and contributions on <a href="http://influenceexplorer.com/organization/campaign-to-defeat-barack-obama/7416a2e232fa434e99b520d7603e09a9" target="_blank">Influence Explorer</a>'
 		});
 
+		popcorn.influenceExplorer({
+			start: '5:14',
+			end: '5:20',
+			orgId: '39738c686ce7438abc98587f651c102f',
+			orgName: 'Progressive Change Campaign Cmte',
+			html: ''
+		});
+
+		popcorn.influenceExplorer({
+			start: '5:24',
+			end: '5:29',
+			orgId: 'a0951518abe24d7a95cb99dac25caf90',
+			orgName: 'Restore Our Future',
+			html: ''
+		});
+
 
 		popcorn.stateExplorer({
 			start: 80,
