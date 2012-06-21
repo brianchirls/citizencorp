@@ -96,7 +96,7 @@
 			styleSheet.appendChild(
 				document.createTextNode(
 					'.popcorn-influenceExplorer { display: none; position: absolute; width: 100px; height: 100px; right: 5%; bottom: 10%; border: blue solid 4px; background-color: rgba(0,0,255, 0.4); cursor: pointer; border-radius: 10px; }\n' +
-					'.popcorn-influenceExplorer-lightbox { display: none; position: absolute; height: 80%; width: 80%; top: 10%; left: 10%; background-color: rgba(255,255,255,0.9); border: white solid 4px; border-radius: 10px; font-family: \'Helvetica Neue\', Helvetica, Arial, sans-serif; min-width: 800px;}\n' +
+					'.popcorn-influenceExplorer-lightbox { display: none; position: absolute; height: 90%; width: 90%; top: 5%; left: 5%; background-color: rgba(255,255,255,0.9); border: white solid 4px; border-radius: 10px; font-family: \'Helvetica Neue\', Helvetica, Arial, sans-serif; min-width: 800px;}\n' +
 					'.popcorn-influenceExplorer-lightbox.active { display: block; }\n' +
 					'.popcorn-influenceExplorer-lightbox > div { position: relative; width: 100%; height: 100%; padding: 62px 20px 20px 20px; box-sizing: border-box; }\n' +
 					'.popcorn-influenceExplorer-lightbox h2 {margin: 0 0 20px 0; padding-bottom: 10px; position: absolute; top: 20px; }\n' +
@@ -146,7 +146,7 @@
 
 		if (options.pacHtml) {
 			e = document.createElement('div');
-			e.innerHTML = options.pacHtml;
+			e.innerHTML = '<p>' + options.pacHtml + '</p>';
 			lightboxContent.appendChild(e);
 		}
 
@@ -173,7 +173,7 @@
 					parties = document.createElement('div');
 					base.addClass(parties, 'parties');
 					dataContainer.appendChild(parties);
-					parties.innerHTML = '<h3>Disclosed Political Contributions</h3><p class="descr">in dollars. "other" includes 3rd parties and organizations without official party affiliation.</p>';
+					parties.innerHTML = '<h3><span>Disclosed Political Contributions</span></h3><p class="descr">in dollars. "other" includes 3rd parties and organizations without official party affiliation.</p>';
 
 					refScript('http://cdnjs.cloudflare.com/ajax/libs/d3/2.8.1/d3.v2.min.js', 'd3', function() {
 						var svg,
@@ -276,7 +276,7 @@
 					recipients = document.createElement('div');
 					base.addClass(recipients, 'recipients');
 					dataContainer.appendChild(recipients);
-					recipients.innerHTML = '<h3>Top Recipients</h3><p class="descr">includes contributions from the organization’s employees, their family members, and its political action committee.</p>';
+					recipients.innerHTML = '<h3><span>Top Recipients</span></h3><p class="descr">includes contributions from the organization’s employees, their family members, and its political action committee.</p>';
 					renderTable(data, function(rec) {
 						return rec.name + ((rec.party && rec.state) ? ' ' + rec.party + '-' + rec.state : '');
 					}, 'total_amount');
@@ -286,22 +286,22 @@
 						recipients = document.createElement('div');
 						base.addClass(recipients, 'recipients');
 						dataContainer.appendChild(recipients);
-						recipients.innerHTML = '<h3>Top Contributors</h3><p class="descr">top donors giving over $100,000</p>';
+						recipients.innerHTML = '<h3><span>Top Contributors</span></h3><p class="descr">top donors giving over $100,000</p>';
 						renderTable(data, 'contributor_name', 'amount');
 					});
 				}
 			});
 		}
 
-		e = document.createElement('div');
-		e.innerHTML = '<h3>Dig Deeper</h3>';
-		lightboxContent.appendChild(e);
-
 		if (options.html) {
+			e = document.createElement('div');
+			e.className = 'dig-deeper';
+			e.innerHTML = '<h3><span>Dig Deeper</span></h3>';
+			var ref = lightboxContent.appendChild(e);
 			e = document.createElement('div');
 			base.addClass(e, 'comment');
 			e.innerHTML = options.html;
-			lightboxContent.appendChild(e);
+			ref.appendChild(e);
 		}
 
 		keyEvent = function(evt) {
