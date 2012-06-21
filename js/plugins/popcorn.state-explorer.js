@@ -417,7 +417,7 @@
                 if (touched && Date.now() - touched >= 180000 || !touched && (time - idleStartTime) > 20) {
                     popcorn.currentTime(options.end);
                 } else if (time >= loopEndTime) {
-                    popcorn.currentTime(options.start);
+                    popcorn.currentTime(options.start + 1);
                 }
             },
             start: function( event, options ) {
