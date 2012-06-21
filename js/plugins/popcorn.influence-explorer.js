@@ -193,7 +193,7 @@
 						.enter().append('svg:path')
 						.attr('fill', function(d, i) {
 							//return color(i);
-							return colors[partiesData[i].party] || '#aaa';
+							return colors[partiesData[i].party] || '#000';
 						})
 						.attr('d', arc);
 						//.exit().remove();
