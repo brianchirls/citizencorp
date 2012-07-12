@@ -169,26 +169,28 @@
 			end: 102.4
 		});
 
-		/*
-			popcorn.defaults.stateExplorer = {
-				state: 'MD'
-			};
-
-			popcorn.influenceExplorer({
-				start: 1,
-				end: 2
-				//state: 'MD'
-			});
-		*/
-
 		popcorn.media.addEventListener('keydown', function(evt) {
-			if (evt.keyCode === 32) {
+			console.log('keydown ' + evt.which + ' ' + popcorn.paused());
+			if (evt.which === 32) {
 				evt.preventDefault();
+				evt.stopPropagation();
+				return false;
+			}
+		}, true);
+
+		popcorn.media.addEventListener('keypress', function(evt) {
+			console.log('keypress ' + evt.which + ' ' + popcorn.paused());
+			if (evt.which === 32) {
+				evt.preventDefault();
+				evt.stopPropagation();
+				return false;
 			}
 		}, true);
 
 		window.addEventListener('keyup', function(evt) {
-			if (evt.keyCode === 32) {
+			console.log('keyup ' + evt.which);
+			return;
+			if (evt.which === 32) {
 				if (popcorn.paused()) {
 					popcorn.play();
 				} else {
