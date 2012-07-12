@@ -42,7 +42,7 @@
 			end: 6,
 			orgId: '86656f0dca46422e997aade92cfd0419',
 			orgName: 'Americans for Prosperity',
-			pacHtml: 'Americans for Prosperity was founded by billionaire brothers David and Charles Koch, owners of Koch Industries to back conservative issue like small government  and  lower taxes.  The group refuses to disclose how much it spends on outside electioneering activities in Wisconsin and elsewhere through its 501(c)(4) and its 501(c)(3) charitable arms.',
+			pacHtml: '<p style="font-weight: bold;">Americans for Prosperity says it spent $10 million in Wisconsin to help keep Scott Walker in office, and plans to spend ten times that amount on elections in 2012. Almost none of this political spending is required to be disclosed publicly. </p><p>Americans for Prosperity was founded by billionaire brothers David and Charles Koch, owners of Koch Industries to back conservative issue like small government  and  lower taxes.  The group refuses to disclose how much it spends on outside electioneering activities in Wisconsin and elsewhere through its 501(c)(4) and its 501(c)(3) charitable arms.</p>',
 			html: 'Americans for Prosperity spent millions on television ads in Wisconsin in support of Gov. Walker in 2011-2012, according to local television ad buy reports reviewed by the Wisconsin Democracy Campaign. These expenditures are not required to be disclosed publicly.'
 		});
 
